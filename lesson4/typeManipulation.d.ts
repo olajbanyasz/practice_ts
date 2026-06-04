@@ -1,13 +1,12 @@
 export type isString<T> = T extends string ? true : false;
-type Optional<T> = {
-    [P in keyof T]?: T[P];
-};
-export interface User {
+export interface Person {
     id: number;
     name: string;
     email: string;
 }
-export type OptionalUser = Optional<User>;
-export declare const user: OptionalUser;
-export {};
+export type onlyNameAndEmail<T extends Person> = Pick<T, "name" | "email">;
+export type Optional<T> = {
+    [P in keyof T]?: T[P];
+};
+export declare const person: Person;
 //# sourceMappingURL=typeManipulation.d.ts.map

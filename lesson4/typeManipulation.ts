@@ -1,25 +1,25 @@
 export type isString<T> = T extends string ? true : false;
 
-type Optional<T> = {
-  [P in keyof T]?: T[P];
-};
-
-export interface User {
+export interface Person {
   id: number;
   name: string;
   email: string;
 };
 
-export type OptionalUser = Optional<User>;
+export type onlyNameAndEmail<T extends Person> = Pick<T, "name" | "email">; // onlyNameAndEmail is now just the 'name' and 'email' properties of Person
 
-export const user: OptionalUser = {
-  id: 1,
-  name: "John Doe"
+export type Optional<T> = {
+  [P in keyof T]?: T[P];
 };
 
+export const person: Person = {
+  id: 1,
+  name: "John Doe",
+  email: "john.doe@example.com"
+};
 
-/* Example of using User type directly shows that email is required, while OptionalUser allows it to be optional
-const user1: User = {
+/* Example of using Person type directly shows that email is required, while OptionalPerson allows it to be optional
+const user1: Person = {
   id: 1,
   name: "John Doe",
 };
