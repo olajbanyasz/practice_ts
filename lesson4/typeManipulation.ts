@@ -6,8 +6,6 @@ export interface Person {
   email: string;
 };
 
-export type onlyNameAndEmail<T extends Person> = Pick<T, "name" | "email">; // onlyNameAndEmail is now just the 'name' and 'email' properties of Person
-
 export type Optional<T> = {
   [P in keyof T]?: T[P];
 };
