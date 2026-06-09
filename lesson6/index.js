@@ -1,8 +1,11 @@
+import { fileURLToPath } from 'node:url';
 import { ApiService } from './apiService.js';
-const apiService = new ApiService('https://jsonplaceholder.typicode.com');
-async function getPosts() {
+const baseUrl = 'https://jsonplaceholder.typicode.com';
+const postsEndpoint = 'posts';
+export const apiService = new ApiService(baseUrl);
+export async function getPosts() {
     try {
-        const posts = await apiService.fetchData('posts');
+        const posts = await apiService.fetchData(postsEndpoint);
         console.log('Posts:', posts);
     }
     catch (error) {
@@ -14,5 +17,8 @@ async function getPosts() {
         }
     }
 }
-getPosts();
+const __filename = fileURLToPath(import.meta.url);
+if (process.argv[1] === __filename) {
+    getPosts();
+}
 //# sourceMappingURL=index.js.map
