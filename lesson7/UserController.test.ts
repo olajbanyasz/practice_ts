@@ -1,12 +1,11 @@
 import { userController, UserController } from './UserController.ts';
-import { productService, ProductService } from './ProductService.ts';
+import { productService } from './ProductService.ts';
 
 describe('UserController', () => {
   beforeEach(() => {
-    (userController as any).users = [];
-    (productService as any).products = [];
+    userController.resetUsers();
+    productService.resetProducts();
   });
-
   test('adds and retrieves users', () => {
     userController.addUser('Joe', 'joe@example.com', []);
     const users = userController.getUsers();

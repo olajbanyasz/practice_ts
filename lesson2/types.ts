@@ -18,6 +18,9 @@ function createElevatedEmployee(name: string, privileges: string[], startDate: D
     };
 }
 
+const elevatedEmployee = createElevatedEmployee('Charlie', ['admin'], new Date());
+console.log(elevatedEmployee);
+
 type User = Admin | Employee;
 
 function merge<T extends object, U extends object>(objA: T, objB: U): T & U {

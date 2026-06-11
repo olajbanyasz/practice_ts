@@ -3,6 +3,10 @@ const add = (a: number, b: number): number => a + b;
 const readOnlyArray: ReadonlyArray<number> = [1, 2, 3];
 // readOnlyArray.push(4); // Error: Property 'push' does not exist on type 'readonly number[]'.
 
+const sum = add(2, 3);
+console.log('Sum:', sum);
+console.log('Read-only array:', readOnlyArray);
+
 const numberArray: number[] = [1, 2, 3];
 
 const mapArray = (arr: number[], fn: (x: number) => number): number[] => arr.map(fn);

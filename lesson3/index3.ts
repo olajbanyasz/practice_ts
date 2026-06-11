@@ -1,6 +1,6 @@
-function LogMethodCalls<T extends { new (...args: any[]): {} }>(constructor: T) {
+function LogMethodCalls<T extends new (...args: unknown[]) => object>(constructor: T) {
     return class extends constructor {
-        constructor(...args: any[]) {
+        constructor(...args: unknown[]) {
             super(...args);
             const proto = constructor.prototype;
 
@@ -13,7 +13,7 @@ function LogMethodCalls<T extends { new (...args: any[]): {} }>(constructor: T) 
                 const originalMethod = descriptor.value;
 
                 Object.defineProperty(this, key, {
-                    value: function (...methodArgs: any[]) {
+                    value: function (...methodArgs: unknown[]) {
                         console.log(`Called ${key} with`, methodArgs);
                         return originalMethod.apply(this, methodArgs);
                     },

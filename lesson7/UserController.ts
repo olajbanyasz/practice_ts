@@ -45,6 +45,10 @@ export class UserController {
         this.users = this.users.filter(user => user.id !== id);
     }
 
+    resetUsers() {
+        this.users = [];
+    }
+
     getFavoriteProductsByUserId(userId: number) {
         const user = this.getUserById(userId);
         const favoriteProducts : { id: number; name: string; price: number }[] = [];

@@ -3,12 +3,12 @@
 import { jest } from '@jest/globals';
 import { getPosts, apiService } from './index.ts';
 
-const mockFetchData = jest.fn() as jest.MockedFunction<(endpoint: string) => Promise<unknown>>;
+const mockFetchData = jest.fn<Promise<unknown>, [string]>();
 
 describe('lesson6/index', () => {
   beforeEach(() => {
     mockFetchData.mockReset();
-    apiService.fetchData = mockFetchData as any;
+    apiService.fetchData = mockFetchData as unknown as typeof apiService.fetchData;
   });
 
   it('loads posts and logs the result', async () => {

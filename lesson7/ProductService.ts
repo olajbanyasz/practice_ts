@@ -39,6 +39,10 @@ export class ProductService {
     deleteProduct(id: number) {
         this.products = this.products.filter(product => product.id !== id);
     }
+
+    resetProducts() {
+        this.products = [];
+    }
 }
 
 export const productService = ProductService.getInstance();
