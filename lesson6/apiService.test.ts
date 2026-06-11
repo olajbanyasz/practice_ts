@@ -1,9 +1,9 @@
 /// <reference types="jest" />
 
 import { jest } from '@jest/globals';
-import type { AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios';
+import type { AxiosError, AxiosResponse } from 'axios';
 
-const mockedGet = jest.fn<Promise<AxiosResponse<unknown>>, [string]>();
+const mockedGet = jest.fn<(url: string) => Promise<AxiosResponse<unknown>>>();
 const mockedIsAxiosError = jest.fn((error: unknown): error is AxiosError =>
   typeof error === 'object' && error !== null && 'isAxiosError' in error && (error as { isAxiosError?: unknown }).isAxiosError === true
 );
@@ -40,14 +40,14 @@ describe('ApiService', () => {
   it('throws ApiError when axios rejects', async () => {
     const axiosError = new Error('Request failed') as AxiosError;
     axiosError.isAxiosError = true;
-    axiosError.config = { url: 'https://example.com/test' } as unknown as AxiosRequestConfig;
+    axiosError.config = { url: 'https://example.com/test' } as never;
     axiosError.response = {
       status: 500,
       statusText: 'Server Error',
-      headers: {},
-      config: axiosError.config,
+      headers: {} as never,
+      config: axiosError.config as never,
       data: null,
-    } as unknown as AxiosResponse<unknown>;
+    } as never;
 
     mockedGet.mockRejectedValueOnce(axiosError);
 

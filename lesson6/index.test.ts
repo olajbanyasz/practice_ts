@@ -3,7 +3,7 @@
 import { jest } from '@jest/globals';
 import { getPosts, apiService } from './index.ts';
 
-const mockFetchData = jest.fn<Promise<unknown>, [string]>();
+const mockFetchData = jest.fn<(endpoint: string) => Promise<unknown>>();
 
 describe('lesson6/index', () => {
   beforeEach(() => {
