@@ -10,7 +10,12 @@ describe('UserController', () => {
     userController.addUser('Joe', 'joe@example.com', []);
     const users = userController.getUsers();
     expect(users).toHaveLength(1);
-    expect(users[0]).toMatchObject({ id: 1, name: 'Joe', email: 'joe@example.com', favoriteProducts: [] });
+    expect(users[0]).toMatchObject({
+      id: 1,
+      name: 'Joe',
+      email: 'joe@example.com',
+      favoriteProducts: [],
+    });
   });
 
   test('getUserById returns correct user', () => {
@@ -24,7 +29,12 @@ describe('UserController', () => {
     userController.addUser('Tom', 'tom@example.com', []);
     userController.updateUser(1, 'Tommy', 'tommy@example.com', [1]);
     const u = userController.getUserById(1);
-    expect(u).toMatchObject({ id: 1, name: 'Tommy', email: 'tommy@example.com', favoriteProducts: [1] });
+    expect(u).toMatchObject({
+      id: 1,
+      name: 'Tommy',
+      email: 'tommy@example.com',
+      favoriteProducts: [1],
+    });
   });
 
   test('deleteUser removes user', () => {
