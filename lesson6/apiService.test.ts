@@ -4,8 +4,12 @@ import { jest } from '@jest/globals';
 import type { AxiosError, AxiosResponse } from 'axios';
 
 const mockedGet = jest.fn<(url: string) => Promise<AxiosResponse<unknown>>>();
-const mockedIsAxiosError = jest.fn((error: unknown): error is AxiosError =>
-  typeof error === 'object' && error !== null && 'isAxiosError' in error && (error as { isAxiosError?: unknown }).isAxiosError === true
+const mockedIsAxiosError = jest.fn(
+  (error: unknown): error is AxiosError =>
+    typeof error === 'object' &&
+    error !== null &&
+    'isAxiosError' in error &&
+    (error as { isAxiosError?: unknown }).isAxiosError === true
 );
 
 jest.unstable_mockModule('axios', async () => ({
@@ -28,7 +32,9 @@ describe('ApiService', () => {
 
   it('returns data when the request succeeds', async () => {
     const responseData = { hello: 'world' };
-    mockedGet.mockResolvedValueOnce({ data: responseData } as unknown as AxiosResponse<typeof responseData>);
+    mockedGet.mockResolvedValueOnce({ data: responseData } as unknown as AxiosResponse<
+      typeof responseData
+    >);
 
     const service = new ApiService('https://example.com');
     const result = await service.fetchData('test');
