@@ -1,6 +1,6 @@
 function sumWithOptionalDivision(numbers: number[], divisor?: number): number {
-    const sum = numbers.reduce((acc, num) => acc + num, 0);
-    return divisor ? sum / divisor : sum;
+  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  return divisor ? sum / divisor : sum;
 }
 
 export default sumWithOptionalDivision;
