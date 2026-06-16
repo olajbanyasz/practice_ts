@@ -2,7 +2,7 @@ import { ProductService, productService } from './ProductService.ts';
 
 describe('ProductService', () => {
   beforeEach(() => {
-    (productService as any).products = [];
+    productService.resetProducts();
   });
 
   test('adds and retrieves products', () => {

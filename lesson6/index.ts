@@ -7,19 +7,19 @@ const postsEndpoint = 'posts';
 export const apiService = new ApiService(baseUrl);
 
 export async function getPosts() {
-    try {
-        const posts = await apiService.fetchData(postsEndpoint);
-        console.log('Posts:', posts);
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            console.error('Error getting posts:', error.message);
-        } else {
-            console.error('Error getting posts:', error);
-        }
+  try {
+    const posts = await apiService.fetchData(postsEndpoint);
+    console.log('Posts:', posts);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error getting posts:', error.message);
+    } else {
+      console.error('Error getting posts:', error);
     }
+  }
 }
 
 const __filename = fileURLToPath(import.meta.url);
 if (process.argv[1] === __filename) {
-    getPosts();
+  getPosts();
 }

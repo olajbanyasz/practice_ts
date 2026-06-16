@@ -1,11 +1,15 @@
 /// <reference types="jest" />
 
 import { jest } from '@jest/globals';
-import type { AxiosError } from 'axios';
+import type { AxiosError, AxiosResponse } from 'axios';
 
-const mockedGet = jest.fn() as jest.MockedFunction<(url: string) => Promise<unknown>>;
-const mockedIsAxiosError = jest.fn((error: unknown): error is AxiosError =>
-  typeof error === 'object' && error !== null && (error as any).isAxiosError === true
+const mockedGet = jest.fn<(url: string) => Promise<AxiosResponse<unknown>>>();
+const mockedIsAxiosError = jest.fn(
+  (error: unknown): error is AxiosError =>
+    typeof error === 'object' &&
+    error !== null &&
+    'isAxiosError' in error &&
+    (error as { isAxiosError?: unknown }).isAxiosError === true
 );
 
 jest.unstable_mockModule('axios', async () => ({
@@ -28,7 +32,9 @@ describe('ApiService', () => {
 
   it('returns data when the request succeeds', async () => {
     const responseData = { hello: 'world' };
-    mockedGet.mockResolvedValueOnce({ data: responseData } as any);
+    mockedGet.mockResolvedValueOnce({ data: responseData } as unknown as AxiosResponse<
+      typeof responseData
+    >);
 
     const service = new ApiService('https://example.com');
     const result = await service.fetchData('test');
@@ -40,14 +46,14 @@ describe('ApiService', () => {
   it('throws ApiError when axios rejects', async () => {
     const axiosError = new Error('Request failed') as AxiosError;
     axiosError.isAxiosError = true;
-    axiosError.config = { url: 'https://example.com/test' } as any;
+    axiosError.config = { url: 'https://example.com/test' } as never;
     axiosError.response = {
       status: 500,
       statusText: 'Server Error',
-      headers: {},
-      config: axiosError.config,
+      headers: {} as never,
+      config: axiosError.config as never,
       data: null,
-    } as any;
+    } as never;
 
     mockedGet.mockRejectedValueOnce(axiosError);
 
